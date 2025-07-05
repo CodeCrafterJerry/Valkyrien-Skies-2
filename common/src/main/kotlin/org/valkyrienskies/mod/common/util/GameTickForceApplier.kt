@@ -50,19 +50,23 @@ class GameTickForceApplier {
     }
 
     fun applyInvariantTorque(ship: ShipId, torque: Vector3dc) {
-        invForces.add(ship to torque)
+        invTorques.add(ship to torque)
     }
-
+    
     fun applyRotDependentForce(ship: ShipId, force: Vector3dc) {
-        invForces.add(ship to force)
+        rotForces.add(ship to force)
     }
 
     fun applyRotDependentTorque(ship: ShipId, torque: Vector3dc) {
-        invForces.add(ship to torque)
+        rotTorques.add(ship to torque)
     }
 
     fun applyInvariantForceToPos(ship: ShipId, force: Vector3dc, pos: Vector3dc) {
         invPosForces.add(ship to InvForceAtPos(force, pos))
+    }
+    
+    fun applyRotDependentForceToPos(ship: ShipId, force: Vector3dc, pos: Vector3dc) {
+        rotPosForces.add(ship to InvForceAtPos(force, pos))
     }
 
     fun setStatic(ship: ShipId, b: Boolean) {

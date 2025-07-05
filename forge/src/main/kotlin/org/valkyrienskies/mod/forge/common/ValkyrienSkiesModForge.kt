@@ -54,7 +54,9 @@ import org.valkyrienskies.mod.common.item.ConnectionCheckerItem
 import org.valkyrienskies.mod.common.item.PhysicsEntityCreatorItem
 import org.valkyrienskies.mod.common.item.ShipAssemblerItem
 import org.valkyrienskies.mod.common.item.ShipCreatorItem
+import org.valkyrienskies.mod.compat.LoadedMods
 import org.valkyrienskies.mod.compat.clothconfig.VSClothConfig
+import org.valkyrienskies.mod.compat.flywheel.FlywheelCompat
 import org.valkyrienskies.mod.forge.compat.epicfight.FracturedBlockStateInfoProvider
 
 @Mod(MOD_ID)
@@ -103,6 +105,7 @@ class ValkyrienSkiesModForge {
         if (isClient) {
             modBus.addListener(::registerKeyBindings)
             modBus.addListener(::entityRenderers)
+            if (LoadedMods.flywheel == LoadedMods.FlywheelVersion.V1) FlywheelCompat.initClient()
         }
         modBus.addListener(::loadComplete)
 
@@ -223,11 +226,11 @@ class ValkyrienSkiesModForge {
     }
 
     private fun registerCommands(event: RegisterCommandsEvent) {
-        //VSCommands.registerServerCommands(event.dispatcher)
+        VSCommands.registerServerCommands(event.dispatcher)
 
-        //if (event.commandSelection == ALL || event.commandSelection == INTEGRATED) {
-        //    VSCommands.registerClientCommands(event.dispatcher)
-        //}
+        if (event.commandSelection == ALL || event.commandSelection == INTEGRATED) {
+            VSCommands.registerClientCommands(event.dispatcher)
+        }
     }
 
     private fun tagsUpdated(event: TagsUpdatedEvent) {

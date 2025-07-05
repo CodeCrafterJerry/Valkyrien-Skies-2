@@ -1,6 +1,6 @@
 
 dependencies {
-    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5"))
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
 
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
     // We depend on fabric loader here to use the fabric @Environment annotations
@@ -42,9 +42,20 @@ dependencies {
     //Common create compat,
     //We just use a version from a platform and hope the classes exist on both versions and mixins apply correctly
     modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}")
-        { exclude group: 'com.github.AlphaMode', module: 'fakeconfigtoml' }
+        { exclude group: 'com.github.AlphaMode', module: 'fakeconfigtoml'
+          exclude group: 'dev.engine-room.flywheel' }
     modCompileOnly("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
-    modCompileOnly("com.jozufozu.flywheel:flywheel-fabric-${minecraft_version}:${flywheel_version_fabric}")
+    modCompileOnly("net.createmod.ponder:Ponder-Fabric-${minecraft_version}:${ponder_version_fabric}") { transitive = false }
+    modCompileOnly("net.createmod.ponder:Ponder-Common-${minecraft_version}:${ponder_version_fabric}")
+//    modApi "dev.engine-room.flywheel:flywheel-fabric-api-${minecraft_version}:${flywheel_version}"
+    modCompileOnly("dev.engine-room.flywheel:flywheel-fabric-${minecraft_version}:${flywheel_version}")
+
+
+    compileOnlyApi("dev.engine-room.flywheel:flywheel-common-mojmap-api-${minecraft_version}:${flywheel_version}")
+
+    //this is GIGA SUSPICIOUS but we need it for maintaining old compat
+    //modCompileClasspathMapped("com.simibubi.create:create-fabric-${minecraft_version}:${old_create_fabric_version}")
+    modCompileOnly("com.jozufozu.flywheel:flywheel-fabric-${minecraft_version}:${old_flywheel_version}")
 
     modCompileOnly("maven.modrinth:create-utilities:${create_utilities_version}")
     modImplementation("teamreborn:energy:${energy_version}")
