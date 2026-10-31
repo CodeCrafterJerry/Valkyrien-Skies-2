@@ -36,7 +36,7 @@ jobs:
 
       # 5. 使用 Gradle 编译 Mod
       - name: Build with Gradle
-        run: ./gradlew build forge
+        run: ./gradlew build
 
       # 6. 上传编译产物到 Action 文件区域
       - name: Upload Mod Artifact
